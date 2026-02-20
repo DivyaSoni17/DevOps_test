@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    environment {
+        APP_NAME = "flask-app"
+        PYTHON_VERSION = "3.11"
+        VENV_DIR = "venv"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Cloning repository...'
+                checkout scm
+            }
+        }
+
+        stage('Setup Python Environment') {
+            steps {
+                echo 'Setting up virtual environment...'
+                sh """
+                    python${PYTHON_VERSION} -m venv ${VENV_DIR}
+                    . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip
+                    pip install flask pytest
+                """
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing dependencies...'
+                sh """
+                    . ${VENV_DIR}/bin/activate
+                    pip install -r requirements.txt
+                """
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                echo 'Running linter...'
+                sh """
+                    . ${VENV_DIR}/bin/activate
+                    pip install flake8
+                    flake8 app.py --max-line-length=120
