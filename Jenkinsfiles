@@ -9,12 +9,14 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                echo 'Cloning repository...'
-                checkout scm
+                git branch: 'main',
+                credentialsId: 'Jenkinsfiles_test_devops',
+                url: 'https://github.com/DivyaSoni17/DevOps_test.git'
             }
         }
+    }
 
         stage('Setup Python Environment') {
             steps {
