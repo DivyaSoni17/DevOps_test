@@ -16,7 +16,7 @@ pipeline {
                 url: 'https://github.com/DivyaSoni17/DevOps_test.git'
             }
         }
-    }
+    
 
         stage('Setup Python Environment') {
             steps {
@@ -47,3 +47,7 @@ pipeline {
                     . ${VENV_DIR}/bin/activate
                     pip install flake8
                     flake8 app.py --max-line-length=120
+                """
+            }
+        }
+    }
