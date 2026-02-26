@@ -45,7 +45,7 @@ pipeline {
                 sh """
                     . ${VENV_DIR}/bin/activate
                     pip install flake8
-                    flake8 app.py --max-line-length=120
+                    flake8 browser_flask.py --max-line-length=120
                 """
             }
         }
