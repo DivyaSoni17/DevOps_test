@@ -16,7 +16,6 @@ pipeline {
                 url: 'https://github.com/DivyaSoni17/DevOps_test.git'
             }
         }
-    
 
         stage('Setup Python Environment') {
             steps {
@@ -50,4 +49,6 @@ pipeline {
                 """
             }
         }
-    }
+
+    }  // closes stages
+}      // closes pipeline  ← THIS WAS MISSING
